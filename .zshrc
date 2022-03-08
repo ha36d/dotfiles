@@ -2,7 +2,7 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="~/.oh-my-zsh"
+export ZSH=~/.oh-my-zsh
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -63,7 +63,7 @@ ZSH_THEME="robbyrussell"
 # HIST_STAMPS="mm/dd/yyyy"
 
 # Would you like to use another custom folder than $ZSH/custom?
-# ZSH_CUSTOM=/path/to/new-custom-folder
+ZSH_CUSTOM=~/.oh-my-zsh/custom
 
 # Which plugins would you like to load?
 # Standard plugins can be found in $ZSH/plugins/
@@ -75,7 +75,7 @@ plugins=(
   zsh-autosuggestions
   sudo
   web-search
-  copydir
+  copypath
   copyfile
   copybuffer
   dirhistory
@@ -101,120 +101,11 @@ source $ZSH/oh-my-zsh.sh
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
-#
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
 
-# pyenv
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
-if command -v pyenv 1>/dev/null 2>&1; then
-  eval "$(pyenv init --path)"
-  eval "$(pyenv init -)"
-  eval "$(pyenv virtualenv-init -)"
-fi
-
-# KUBE Enviroments
-export KUBECONFIG=$(ls -d ~/.kube/* | grep -v -e 'cache' -e 'kubectx' | xargs | tr ' ' ':')
-
-# Helm
-export HELM_EXPERIMENTAL_OCI=1
-
-# alias
-alias gitroot="cd ~/Documents/GIT"
-alias k="kubectl"
-alias kx="kubectx"
-alias tf="terraform"
-alias tg="terragrunt"
-alias c='clear'
-## Colorize the ls output ##
-alias ls='ls --color=auto'
- 
-## Use a long listing format ##
-alias ll='ls -la'
-
-## get rid of command not found ##
-alias cd..='cd ..'
-
-## a quick way to get out of current directory ##
-alias ..='cd ..'
-alias ...='cd ../../../'
-alias ....='cd ../../../../'
-alias .....='cd ../../../../'
-alias .4='cd ../../../../'
-alias .5='cd ../../../../..'
-
-## Colorize the grep command output for ease of use (good for log files)##
-alias grep='grep --color=auto'
-alias egrep='egrep --color=auto'
-alias fgrep='fgrep --color=auto'
-
-alias bc='bc -l'
-
-alias mkdir='mkdir -pv'
-# install  colordiff package :)
-alias diff='colordiff'
-
-# handy short cuts #
-alias h='history'
-alias j='jobs -l'
-
-alias path='echo -e ${PATH//:/\\n}'
-alias now='date +"%T"'
-alias nowtime=now
-alias nowdate='date +"%d-%m-%Y"'
-
-# <3
-alias vi=vim
-alias svi='sudo vi'
-alias vis='vim "+set si"'
-alias edit='vim'
-
-# Stop after sending count ECHO_REQUEST packets #
-alias ping='ping -c 5'
-# Do not wait interval 1 second, go fast #
-alias fastping='ping -c 100 -s.2'
-
-alias ports='netstat -tulanp'
-
-# do not delete / or prompt if deleting more than 3 files at a time #
-alias rm='rm -I --preserve-root'
-
-# confirmation #
-alias mv='mv -i'
-alias cp='cp -i'
-alias ln='ln -i'
-
-# Parenting changing perms on / #
-alias chown='chown --preserve-root'
-alias chmod='chmod --preserve-root'
-alias chgrp='chgrp --preserve-root'
-
-# become root #
-alias root='sudo -i'
-alias su='sudo -i'
-
-
-
-# GPG
-export GPG_TTY=$(tty)
-
-# psql
-export PATH="/usr/local/opt/libpq/bin:$PATH"
-
-# fzf
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-#mtr
-export PATH="/usr/local/Cellar/mtr/0.94/sbin/:$PATH"
-
-# thefuck
-eval $(thefuck --alias)
-
-# mysql
-export PATH="/usr/local/opt/mysql-client/bin:$PATH"
+# Load the shell dotfiles, and then some:
+# * ~/.path can be used to extend `$PATH`.
+# * ~/.extra can be used for other settings you don’t want to commit.
+for file in ~/.{path,aliases}; do
+	[ -r "$file" ] && [ -f "$file" ] && source "$file";
+done;
+unset file;

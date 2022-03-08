@@ -1,0 +1,36 @@
+# Homebrew
+# eval "$(/bin/brew shellenv)"
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
+# thefuck
+eval $(thefuck --alias)
+
+# pyenv
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+if command -v pyenv 1>/dev/null 2>&1; then
+  eval "$(pyenv init --path)"
+  eval "$(pyenv init -)"
+  eval "$(pyenv virtualenv-init -)"
+fi
+
+# KUBE Enviroments
+export KUBECONFIG=$(ls -d ~/.kube/* | grep -v -e 'cache' -e 'kubectx' | xargs | tr ' ' ':')
+
+# Helm
+export HELM_EXPERIMENTAL_OCI=1
+
+# GPG
+export GPG_TTY=$(tty)
+
+# psql
+export PATH="/usr/local/opt/libpq/bin:$PATH"
+
+# fzf
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+#mtr
+export PATH="/usr/local/Cellar/mtr/0.94/sbin/:$PATH"
+
+# mysql
+export PATH="/usr/local/opt/mysql-client/bin:$PATH"
