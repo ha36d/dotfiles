@@ -1,7 +1,3 @@
-# Homebrew
-# eval "$(/bin/brew shellenv)"
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-
 # thefuck
 eval $(thefuck --alias)
 
@@ -16,6 +12,9 @@ fi
 
 # KUBE Enviroments
 export KUBECONFIG=$(ls -d ~/.kube/* | grep -v -e 'cache' -e 'kubectx' | xargs | tr ' ' ':')
+
+# krew
+export PATH="${PATH}:${HOME}/.krew/bin"
 
 # Helm
 export HELM_EXPERIMENTAL_OCI=1
